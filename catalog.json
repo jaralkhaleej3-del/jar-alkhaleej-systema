@@ -212,6 +212,16 @@
       "project": ""
     },
     {
+      "id": "sadad-guide",
+      "title": "دليل مفوتري سداد",
+      "description": "ابحث برقم المفوتر أو اسم الجهة، وانسخ رموز سداد وتحقق منها قبل الدفع",
+      "file": "sadad-directory.html",
+      "category": "management",
+      "icon": "🧾",
+      "role": "main",
+      "project": ""
+    },
+    {
       "id": "maintenance",
       "title": "السندات والصيانة والاستبدال",
       "description": "نظام الصيانة والفواتير والمتابعة مع تسجيل الدخول الخاص به",
