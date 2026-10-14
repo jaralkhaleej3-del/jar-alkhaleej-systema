@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10372d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="البوابة الموحدة لتطبيقات شركة جار الخليج للصناعة">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/portal.css">
+  <title>جار الخليج | بوابة التطبيقات الموحدة</title>
+  <script src="assets/catalog.js" defer></script>
+  <script src="assets/portal.js" defer></script>
+</head>
+<body data-theme="light">
+  <div class="gate" id="gate" aria-live="polite">
+    <div class="gate-bg-dot dot-a"></div><div class="gate-bg-dot dot-b"></div>
+    <section class="gate-card" aria-label="بوابة الدخول">
+      <div class="gate-brand"><span class="brand-icon">جـ</span><div><strong>شركة جار الخليج للصناعة</strong><span>بوابة التطبيقات الموحدة</span></div></div>
+      <div class="gate-art"><span>🔐</span></div>
+      <div class="gate-label">وصول إلى مساحة العمل</div>
+      <h1 id="gateTitle">إعداد وسيلة الدخول</h1>
+      <p class="gate-description" id="gateDescription">اختر الطريقة التي تريد بها قفل بوابة التطبيقات على هذا الجهاز.</p>
+      <div id="gateMethodPicker" class="gate-methods" aria-label="طريقة الدخول">
+        <button type="button" class="method-btn active" data-method="pin"><span>🔢</span><b>رمز PIN</b></button>
+        <button type="button" class="method-btn" data-method="pattern"><span>🔗</span><b>نقش نمط</b></button>
+        <button type="button" class="method-btn" data-method="password"><span>🔑</span><b>كلمة مرور</b></button>
+      </div>
+      <form id="gateForm" novalidate>
+        <div id="gateTextInputs" class="gate-form-fields">
+          <label class="form-label" for="gateSecret" id="gateSecretLabel">أدخل رمز PIN</label>
+          <input id="gateSecret" class="gate-input" type="password" inputmode="numeric" autocomplete="off" placeholder="6 أرقام أو أكثر" required>
+          <div id="gateConfirmWrap"><label class="form-label" for="gateConfirm">تأكيد وسيلة الدخول</label><input id="gateConfirm" class="gate-input" type="password" inputmode="numeric" autocomplete="off" placeholder="أعد الإدخال"></div>
+        </div>
+        <div id="patternArea" hidden>
+          <p id="patternHint" class="pattern-hint">صل 4 نقاط على الأقل دون رفع إصبعك.</p>
+          <div class="pattern-board" id="patternBoard" aria-label="لوحة النمط ذات تسع نقاط" role="group">
+            <svg id="patternSvg" viewBox="0 0 300 300" aria-hidden="true"><path id="patternLine" d="" fill="none" stroke="#b58b51" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+          <button type="button" id="clearPattern" class="text-btn">مسح الرسم وإعادته</button>
+        </div>
+        <div class="gate-error" id="gateError" role="alert" hidden></div>
+        <button type="submit" id="gateSubmit" class="btn btn-primary btn-block">حفظ وسيلة الدخول</button>
+        <button type="button" id="gateCancel" class="text-btn" hidden>إلغاء والعودة للنظام</button>
+      </form>
+      <div class="gate-foot"><span>🔒</span> القفل محلي لهذا المتصفح؛ صلاحيات بيانات Firebase يجب ضبطها في الخادم.</div>
+    </section>
+  </div>
+
+  <div class="shell" id="appShell" hidden>
+    <div id="sideScrim" class="side-scrim" hidden></div>
+    <aside class="sidebar" id="sidebar" aria-label="القائمة الجانبية">
+      <div class="sidebar-head">
+        <span class="brand-icon">جـ</span>
+        <div><b>جار الخليج للصناعة</b><small>مساحة العمل المتكاملة</small></div>
+      </div>
+      <div class="side-divider"></div>
+      <button class="side-home side-link active" type="button" data-action="home"><span class="side-emoji">⌂</span><span>الرئيسية</span></button>
+      <p class="side-caption">التطبيقات حسب الإدارة</p>
+      <nav id="sidebarGroups" aria-label="مجموعات التطبيقات"></nav>
+      <div class="sidebar-bottom">
+        <button class="side-link" data-action="settings"><span class="side-emoji">⚙</span><span>الإعدادات والأمان</span></button>
+        <button class="side-link" data-action="lock"><span class="side-emoji">🔒</span><span>قفل النظام</span></button>
+        <div class="side-version"><span class="online-dot"></span> بوابة التطبيقات · الإصدار 1.0</div>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-start">
+          <button class="icon-button hamburger" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+          <div class="top-heading"><span id="topLocation">الرئيسية</span><small id="topSubheading">جميع أدوات العمل في مكان واحد</small></div>
+        </div>
+        <div class="topbar-actions">
+          <span class="secure-tag" title="تم فتح قفل واجهة هذه الجلسة فقط">◉ <span>القفل مفتوح</span></span>
+          <button class="icon-button" id="settingsShortcut" title="الإعدادات" aria-label="الإعدادات">⚙</button>
+          <button class="top-lock" id="lockShortcut">🔒 <span>قفل</span></button>
+        </div>
+      </header>
+
+      <main id="homeView" class="home-main" tabindex="-1">
+        <div class="welcome-panel">
+          <div class="welcome-text"><div class="hero-eyebrow">نظام أعمال الشركة</div><h2>كل تطبيقات جار الخليج،<br><em>في مكان واحد.</em></h2><p>انتقل بين عمليات الطلبات والإنتاج والمالية والهندسة بسهولة، على الكمبيوتر أو الآيباد أو الجوال.</p><button class="hero-button" type="button" data-action="open" data-app="orders-dashboard">فتح لوحة الطلبات <span>↗</span></button></div>
+          <div class="welcome-visual" aria-hidden="true"><div class="hero-ring ring-one"></div><div class="hero-ring ring-two"></div><div class="hero-glyph">جـ</div><div class="hero-floating f-one">📋 الطلبات</div><div class="hero-floating f-two">🏭 الإنتاج</div><div class="hero-floating f-three">📊 التقارير</div></div>
+        </div>
+        <div class="summary-line"><div><span class="summary-ic">▦</span><div><strong id="totalAppsCount">18</strong><span>تطبيق وصفحة</span></div></div><div><span class="summary-ic">◫</span><div><strong id="totalGroupsCount">6</strong><span>أقسام رئيسية</span></div></div><div><span class="summary-ic">↗</span><div><strong>متجاوب</strong><span>كمبيوتر · آيباد · جوال</span></div></div></div>
+        <section class="finder" aria-label="البحث عن التطبيقات">
+          <div class="finder-label"><label for="appSearch">ابحث عن تطبيق</label><span id="filterCount">جميع التطبيقات</span></div>
+          <div class="finder-input"><span>⌕</span><input id="appSearch" type="search" placeholder="ابحث بالاسم أو القسم أو الوظيفة..." autocomplete="off"><kbd>Ctrl + K</kbd></div>
+          <div class="category-tabs" id="categoryTabs" aria-label="تصفية التطبيقات"></div>
+        </section>
+        <section class="apps-section" id="favoritesSection" hidden><div class="section-heading"><div><span class="small-label">الوصول السريع</span><h3>تطبيقاتك المفضلة</h3></div><span class="section-decor">★</span></div><div id="favoritesGrid" class="app-grid"></div></section>
+        <section class="apps-section" id="recentsSection" hidden><div class="section-heading"><div><span class="small-label">العودة للعمل</span><h3>المستخدمة مؤخرًا</h3></div></div><div id="recentsGrid" class="app-grid"></div></section>
+        <section class="apps-section"><div class="section-heading"><div><span class="small-label" id="sectionLabel">التطبيقات المترابطة</span><h3 id="appSectionTitle">جميع التطبيقات</h3></div><span class="section-count" id="sectionCount">18 تطبيقًا</span></div><div id="appsGrid" class="app-grid"></div><div id="emptyResults" class="empty-results" hidden>لا توجد تطبيقات مطابقة. جرّب البحث بكلمة أخرى.</div></section>
+        <div class="home-footnote"><span>ℹ</span><p>الصفحات تعمل بمصادر بياناتها الأصلية. تسجيل الدخول داخل بعض التطبيقات مستقل عن قفل القائمة الرئيسية.</p></div>
+      </main>
+
+      <main class="viewer-main" id="viewerView" hidden>
+        <div class="viewer-toolbar"><div class="viewer-trail"><button type="button" class="crumb-home" data-action="home">الرئيسية</button><span>‹</span><span id="viewerGroup">القسم</span><span>‹</span><b id="viewerTitle">التطبيق</b><p id="viewerDesc">وصف التطبيق</p></div><div class="viewer-actions"><button class="small-action" data-action="home" title="العودة إلى القائمة">⌂ <span>القائمة</span></button><button class="small-action" id="reloadApp" title="إعادة تحميل الصفحة الحالية">⟳ <span>تحديث</span></button><button class="small-action" id="expandApp" title="تكبير عرض التطبيق">⛶ <span>ملء الشاشة</span></button></div></div>
+        <div class="viewer-box" id="viewerBox"><div class="frame-loading" id="frameLoading"><span class="spinner"></span> جاري فتح التطبيق...</div><iframe id="appFrame" title="التطبيق الحالي" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-read; clipboard-write; fullscreen" allowfullscreen></iframe></div>
+        <div class="viewer-hint">يستمر الحفظ في قاعدة البيانات الخاصة بكل تطبيق بحسب إعداداته وصلاحيات Firebase. عند تعطل شاشة، تأكد من الاتصال بالإنترنت.</div>
+      </main>
+    </div>
+  </div>
+
+  <div class="dialog-backdrop" id="settingsDialog" hidden>
+    <section class="dialog-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="dialog-head"><div><div class="small-label">التخصيص والحماية</div><h2 id="settingsTitle">إعدادات البوابة</h2></div><button class="icon-button" id="closeSettings" aria-label="إغلاق الإعدادات">×</button></div>
+      <div class="dialog-scroll">
+        <div class="setting-group"><h3>تفضيلات العرض</h3><label class="form-label" for="themeSetting">المظهر</label><select class="setting-control" id="themeSetting"><option value="light">فاتح</option><option value="dark">داكن</option></select><label class="form-label" for="lockSetting">القفل التلقائي بعد عدم الاستخدام</label><select class="setting-control" id="lockSetting"><option value="5">5 دقائق</option><option value="15">15 دقيقة</option><option value="30">30 دقيقة</option><option value="60">60 دقيقة</option></select></div>
+        <div class="setting-group"><h3>وسيلة الدخول</h3><p>يمكنك تغيير طريقة قفل البوابة، مع طلب التحقق من طريقة الدخول الحالية أولًا.</p><div class="current-method"><span>🛡</span><div><b id="currentMethodName">رمز PIN</b><small>القفل المحلي لهذا المتصفح</small></div></div><button type="button" class="btn btn-outline" id="changeLockMethod">تغيير طريقة القفل</button></div>
+        <div class="setting-group setting-warning"><h3>أمان البيانات</h3><p>PIN والنمط وكلمة المرور في هذه البوابة قفل للواجهة على جهازك وليست حماية خادمية أو نظام صلاحيات للموظفين. يجب تفعيل Firebase Authentication وقواعد Firestore المناسبة في مشاريع التطبيقات قبل نشرها للعموم.</p></div>
+        <button type="button" class="btn btn-secondary btn-block" id="lockFromSettings">🔒 قفل الآن</button>
+      </div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
